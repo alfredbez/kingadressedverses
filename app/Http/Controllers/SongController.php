@@ -70,8 +70,9 @@ class SongController extends Controller {
 	 */
 	public function show($id)
 	{
-		$this->middleware('admin');
-		return view('songs.detail', ['song' => $this->song->find($id)]);
+		return view('songs.detail', [
+			'song' => $this->song->withTrashed()->where('id', $id)->first()
+		]);
 	}
 
 	/**
@@ -91,9 +92,14 @@ class SongController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $request)
 	{
-		//
+		/* gelöschtes Lied wiederherstellen */
+		if($request->has('restore'))
+		{
+			$this->song->withTrashed()->where('id', $id)->first()->restore();
+			return redirect('song');
+		}
 	}
 
 	/**
@@ -102,9 +108,25 @@ class SongController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($id, Request $request)
 	{
-		//
+		/* Lied aus Papierkorb löschen */
+		if($request->has('sure'))
+		{
+			$this->song->withTrashed()->where('id', $id)->first()->forceDelete();
+			return redirect('song');
+		}
+		$this->song->find($id)->delete();
+		return redirect('song');
+	}
+
+	public function trash()
+	{
+		return view('songs.index', [
+			'songs' => $this->song->onlyTrashed()->get(),
+			'listname' => 'Alle gelöschten Lieder',
+			'errorNoSongs' => 'Es gibt keine gelöschten Lieder',
+			]);
 	}
 
 }

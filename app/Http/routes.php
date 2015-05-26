@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'SongController@index');
+Route::get('/trash', 'SongController@trash');
 Route::resource('song', 'SongController');
 Route::resource('composer', 'ComposerController');
 Route::resource('category', 'CategoryController');
