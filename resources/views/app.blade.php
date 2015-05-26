@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<title>Kingadressedverses</title>
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
@@ -35,6 +36,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">Home</a></li>
 					<li><a href="{{ url('/trash') }}">Papierkorb</a></li>
+					<li><a href="{{ url('/song/create') }}">Lied hinzufügen</a></li>
 				</ul>
 			</div>
 		</div>
@@ -43,7 +45,11 @@
 	@yield('content')
 
 	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+	<script src="/js/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	@yield('footerJs')
+
 </body>
 </html>

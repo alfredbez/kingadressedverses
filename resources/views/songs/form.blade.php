@@ -1,5 +1,9 @@
 @extends('app')
 
+@section('footerJs')
+	<script src="/js/createSong.js"></script>
+@endsection
+
 @section('content')
 <div class="container">
 	<div class="row">
@@ -32,6 +36,10 @@
 										<option value="0">keine Kategorien gefunden</option>
 									@endforelse
 								</select>
+								<br>
+								<input type="text" id="newCategoryName">
+								<span class="btn btn-primary btn-xs" id="newCategory">Kategorie hinzufügen</span>
+								<hr>
 							</div>
 						</div>
 						<div class="form-group">
@@ -44,6 +52,10 @@
 										<option value="0">keine Komponsiten gefunden</option>
 									@endforelse
 								</select>
+								<br>
+								<input type="text" id="newComposerName">
+								<span class="btn btn-primary btn-xs" id="newComposer">Komponist hinzufügen</span>
+								<hr>
 							</div>
 						</div>
 						<div class="form-group">
@@ -56,6 +68,10 @@
 										<option value="0">keine Besetzungen gefunden</option>
 									@endforelse
 								</select>
+								<br>
+								<input type="text" id="newOrchestrationName">
+								<span class="btn btn-primary btn-xs" id="newOrchestration">Besetzung hinzufügen</span>
+								<hr>
 							</div>
 						</div>
 						<div class="form-group">

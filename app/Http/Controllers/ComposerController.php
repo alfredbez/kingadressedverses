@@ -23,7 +23,7 @@ class ComposerController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return $this->composer->all();
 	}
 
 	/**
@@ -41,9 +41,14 @@ class ComposerController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$composer = new Composer();
+		$composer->name = $request->input('name');
+		return json_encode([
+				'saved' => $composer->save(),
+				'name' => $request->input('name')
+			]);
 	}
 
 	/**

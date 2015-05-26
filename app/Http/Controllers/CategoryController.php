@@ -23,7 +23,7 @@ class CategoryController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return $this->category->all();
 	}
 
 	/**
@@ -41,9 +41,14 @@ class CategoryController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$category = new Category();
+		$category->name = $request->input('name');
+		return json_encode([
+				'saved' => $category->save(),
+				'name' => $request->input('name')
+			]);
 	}
 
 	/**

@@ -23,7 +23,7 @@ class OrchestrationController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return $this->orchestration->all();
 	}
 
 	/**
@@ -41,9 +41,14 @@ class OrchestrationController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$orchestration = new Orchestration();
+		$orchestration->name = $request->input('name');
+		return json_encode([
+				'saved' => $orchestration->save(),
+				'name' => $request->input('name')
+			]);
 	}
 
 	/**
