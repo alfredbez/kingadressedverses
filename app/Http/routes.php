@@ -11,11 +11,8 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('home', 'HomeController@index');
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+Route::get('/', 'SongController@index');
+Route::resource('song', 'SongController');
+Route::resource('composer', 'ComposerController');
+Route::resource('category', 'CategoryController');
+Route::resource('orchestration', 'OrchestrationController');
