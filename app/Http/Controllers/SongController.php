@@ -4,6 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Song;
+use App\Category;
+use App\Composer;
+use App\Orchestration;
 
 use Illuminate\Http\Request;
 
@@ -33,7 +36,11 @@ class SongController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('songs.form', [
+				'categories' 			=> Category::all(),
+				'composers'  			=> Composer::all(),
+				'orchestrations' 	=> Orchestration::all(),
+			]);
 	}
 
 	/**
@@ -41,9 +48,18 @@ class SongController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$song = new Song();
+		$song->title = $request->input("title");
+		$song->original_title = $request->input("original_title");
+		$song->category_id = $request->input("category");
+		$song->composer_id = $request->input("composer");
+		$song->orchestration_id = $request->input("orchestration");
+
+		$song->save();
+
+		return redirect('song');
 	}
 
 	/**
