@@ -7,8 +7,11 @@ use App\Song;
 use App\Category;
 use App\Composer;
 use App\Orchestration;
+use App\File;
 
 use Illuminate\Http\Request;
+
+use Storage;
 
 class SongController extends Controller {
 
@@ -57,7 +60,40 @@ class SongController extends Controller {
 		$song->composer_id = $request->input("composer");
 		$song->orchestration_id = $request->input("orchestration");
 
+		$this->validate($request, [
+      'title' => 'required',
+      'category' => 'required',
+      'composer' => 'required',
+      'orchestration' => 'required',
+    ],
+    [
+    	'required' => ':attribute ist ein Pflichtfeld.',
+    ]);
+
 		$song->save();
+
+		/* Dateien hochladen und speichern */
+		if($request->hasFile('files'))
+		{
+			foreach($request->file('files') as $uploadedFile)
+			{
+				$file = new File();
+
+				/* App\File@setNameAttribute */
+				$file->name = $uploadedFile->getClientOriginalName();
+
+				$file->type = $uploadedFile->guessClientExtension();
+
+				$file->song_id = $song->id;
+
+				$file->save();
+
+				/* App\File@getFilenameAttribute */
+				$filename = $file->filename;
+
+				Storage::disk('local')->put($file->filename, \Illuminate\Support\Facades\File::get($uploadedFile));
+			}
+		}
 
 		return redirect('song');
 	}

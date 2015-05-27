@@ -28,11 +28,16 @@
 						<tr>
 							<th>Dateien</th>
 							<td>
-								@forelse ($song->files as $file)
-									<a href="#">{{ $file->name }}</a>
-								@empty
+								@if (count($song->files) > 0)
+									@foreach ($song->files as $file)
+										<li>
+											<span class="label label-default">{{ $file->type }}</span>
+											<a href="/file/{{ $file->id }}">{{ $file->name }}</a>
+										</li>
+									@endforeach
+								@else
 									Zu diesem Lied gibt es im Moment noch keine Dateien
-								@endforelse
+								@endif
 							</td>
 						</tr>
 					</table>
