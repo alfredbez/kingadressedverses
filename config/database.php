@@ -54,10 +54,10 @@ return [
 
 		'mysql' => [
 			'driver'    => 'mysql',
-			'host'      => parse_url(getenv("DATABASE_URL"))["host"],
-			'database'  => substr(parse_url(getenv("DATABASE_URL"))["path"], 1),
-			'username'  => parse_url(getenv("DATABASE_URL"))["user"],
-			'password'  => parse_url(getenv("DATABASE_URL"))["pass"],
+			'host'      => parse_url(env("DATABASE_URL"))["host"],
+			'database'  => substr(parse_url(env("DATABASE_URL"))["path"], 1),
+			'username'  => parse_url(env("DATABASE_URL"))["user"],
+			'password'  => parse_url(env("DATABASE_URL"))["pass"],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
