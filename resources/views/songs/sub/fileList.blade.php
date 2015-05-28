@@ -6,6 +6,7 @@
 			<a href="/file/{{ $file->id }}">{{ $file->name }}</a>
 			@if (isset($editForm))
 				<span class="btn badge editFile" data-id="{{ $file->id }}">bearbeiten</span>
+				<span class="btn btn-danger badge deleteFile" data-id="{{ $file->id }}">löschen</span>
 			@endif
 		</li>
 	@endforeach

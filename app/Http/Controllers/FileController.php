@@ -42,4 +42,9 @@ class FileController extends Controller {
 		$this->file->find($id)->update(['name' => $request->name]);
 	}
 
+	public function destroy($id)
+	{
+		$this->file->find($id)->delete();
+	}
+
 }

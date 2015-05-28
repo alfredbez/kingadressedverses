@@ -69,7 +69,25 @@ $(document).ready(function(){
 			});
 		});
 	};
+	var deleteFile = function() {
+		var id = $(this).data('id');
+		var el = $('.list-group-item[data-id=' + id + ']');
+		if(confirm('Willst du diese Datei wirklich löschen?'))
+		{
+			$.ajax({
+			    url: '/file/' + id,
+			    type: 'POST',
+			    data: {
+			    	'_method'	: 'DELETE'
+			    },
+			    success: function(data) {
+			    	el.remove();
+			    }
+			});
+		}
+	};
 	$('body').on('click', '.editFile', showFileEditForm);
+	$('body').on('click', '.deleteFile', deleteFile);
 	registerListAddButton('category');
 	registerListAddButton('composer');
 	registerListAddButton('orchestration');
