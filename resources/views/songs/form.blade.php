@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('footerJs')
-	<script src="/js/createSong.js"></script>
+	<script src="/js/songForm.js"></script>
 @endsection
 
 @section('content')
@@ -21,15 +21,18 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">{{ $formtitle or 'neues Lied erstellen'}}</div>
 
-
-
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/song') }}" enctype="multipart/form-data">
+						@if ($data != null)
+							<form class="form-horizontal" role="form" method="POST" action="/song/{{ $data->id }}" enctype="multipart/form-data">
+							<input type="hidden" name="_method" value="PUT">
+						@else
+							<form class="form-horizontal" role="form" method="POST" action="{{ url('/song') }}" enctype="multipart/form-data">
+						@endif
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="form-group">
 							<label class="col-md-4 control-label">Titel</label>
 							<div class="col-md-6 @if ($errors->has('title')) has-error @endif">
-								<input type="text" class="form-control" name="title" value="{{ old('title') }}">
+								<input type="text" class="form-control" name="title" value="{{ $data->title or old('title') }}">
 								@if ($errors->has('title'))
 								    <small class="error">{{ $errors->first('title') }}</small>
 								@endif
@@ -38,16 +41,18 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Original-Titel</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="original_title" value="{{ old('original_title') }}">
+								<input type="text" class="form-control" name="original_title" value="{{ $data->original_title or old('original_title') }}">
 							</div>
 						</div>
 						<hr>
 						<div class="form-group">
 							<label class="col-md-4 control-label">Kategorie</label>
 							<div class="col-md-6 @if ($errors->has('category')) has-error @endif">
-								<select name="category" class="form-control">
+								<select name="category_id" class="form-control">
 									@forelse ($categories as $category)
-										<option value="{{ $category->id }}">{{ $category->name }}</option>
+										<option value="{{ $category->id }}"
+											@if ($data != null && $category->id == $data->category->id) selected="selected" @endif
+										>{{ $category->name }}</option>
 									@empty
 										<option value="0">keine Kategorien gefunden</option>
 									@endforelse
@@ -70,9 +75,12 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Komponist</label>
 							<div class="col-md-6 @if ($errors->has('composer')) has-error @endif">
-								<select name="composer" class="form-control">
+								<select name="composer_id" class="form-control">
 									@forelse ($composers as $composer)
-										<option value="{{ $composer->id }}">{{ $composer->name }}</option>
+										<option value="{{ $composer->id }}"
+											@if ($data != null && $composer->id == $data->composer->id) selected="selected" @endif
+											@if ($composer->id == old('composer')) selected="selected" @endif
+										>{{ $composer->name }}</option>
 									@empty
 										<option value="0">keine Komponsiten gefunden</option>
 									@endforelse
@@ -95,9 +103,11 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Besetzung</label>
 							<div class="col-md-6 @if ($errors->has('orchestration')) has-error @endif">
-								<select name="orchestration" class="form-control">
+								<select name="orchestration_id" class="form-control">
 									@forelse ($orchestrations as $orchestration)
-										<option value="{{ $orchestration->id }}">{{ $orchestration->name }}</option>
+										<option value="{{ $orchestration->id }}"
+											@if ($data != null && $orchestration->id == $data->orchestration->id) selected="selected" @endif
+										>{{ $orchestration->name }}</option>
 									@empty
 										<option value="0">keine Besetzungen gefunden</option>
 									@endforelse
@@ -121,8 +131,13 @@
 							<label class="col-md-4 control-label">Dateien</label>
 							<div class="col-md-6">
 								<input type="file" name="files[]" multiple="multiple" />
+								<br>
+								@if ($data != null)
+									@include('songs.sub.fileList', ['files' => $data->files, 'editForm' => true])
+								@endif
 							</div>
 						</div>
+						<hr>
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-success">Speichern</button>

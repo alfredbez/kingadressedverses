@@ -43,6 +43,7 @@ class SongController extends Controller {
 				'categories' 			=> Category::all(),
 				'composers'  			=> Composer::all(),
 				'orchestrations' 	=> Orchestration::all(),
+				'data' 						=> [],
 			]);
 	}
 
@@ -53,25 +54,15 @@ class SongController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$song = new Song();
-		$song->title = $request->input("title");
-		$song->original_title = $request->input("original_title");
-		$song->category_id = $request->input("category");
-		$song->composer_id = $request->input("composer");
-		$song->orchestration_id = $request->input("orchestration");
+		$song = Song::create($request->all());
 
-		$this->validate($request, [
-      'title' => 'required',
-      'category' => 'required',
-      'composer' => 'required',
-      'orchestration' => 'required',
-    ],
-    [
-    	'required' => ':attribute ist ein Pflichtfeld.',
-    ]);
+		$this->uploadFiles($request, $song->id);
 
-		$song->save();
+		return redirect('song');
+	}
 
+	private function uploadFiles(Request $request, $songId)
+	{
 		/* Dateien hochladen und speichern */
 		if($request->hasFile('files'))
 		{
@@ -84,7 +75,7 @@ class SongController extends Controller {
 
 				$file->type = $uploadedFile->guessClientExtension();
 
-				$file->song_id = $song->id;
+				$file->song_id = $songId;
 
 				$file->save();
 
@@ -94,8 +85,6 @@ class SongController extends Controller {
 				Storage::disk('local')->put($file->filename, \Illuminate\Support\Facades\File::get($uploadedFile));
 			}
 		}
-
-		return redirect('song');
 	}
 
 	/**
@@ -119,7 +108,14 @@ class SongController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$song = $this->song->find($id);
+		return view('songs.form', [
+				'categories' 			=> Category::all(),
+				'composers'  			=> Composer::all(),
+				'orchestrations' 	=> Orchestration::all(),
+				'data' 						=> $song,
+				'formtitle' 			=> 'Lied "' . $song->title . '" bearbeiten',
+			]);
 	}
 
 	/**
@@ -136,6 +132,13 @@ class SongController extends Controller {
 			$this->song->withTrashed()->where('id', $id)->first()->restore();
 			return redirect('song');
 		}
+
+		/* Lied bearbeiten */
+		$old = $this->song->find($id);
+		$new = $request->all();
+		$old->update($new);
+		$this->uploadFiles($request, $id);
+		return redirect()->route('song.show', [$old]);
 	}
 
 	/**

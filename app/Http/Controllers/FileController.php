@@ -37,4 +37,9 @@ class FileController extends Controller {
 		return Response::make('Die Datei wurde nicht gefunden', 404);
 	}
 
+	public function update($id, Request $request)
+	{
+		$this->file->find($id)->update(['name' => $request->name]);
+	}
+
 }

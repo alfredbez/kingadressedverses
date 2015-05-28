@@ -28,16 +28,7 @@
 						<tr>
 							<th>Dateien</th>
 							<td>
-								@if (count($song->files) > 0)
-									@foreach ($song->files as $file)
-										<li>
-											<span class="label label-default">{{ $file->type }}</span>
-											<a href="/file/{{ $file->id }}">{{ $file->name }}</a>
-										</li>
-									@endforeach
-								@else
-									Zu diesem Lied gibt es im Moment noch keine Dateien
-								@endif
+								@include('songs.sub.fileList', ['files' => $song->files])
 							</td>
 						</tr>
 					</table>
@@ -56,6 +47,8 @@
 							<button class="btn btn-danger btn-sm">endgültig entfernen</button>
 						</form>
 					@else
+					<a href="/song/{{ $song->id }}/edit" class="btn btn-primary btn-sm">bearbeiten</a>
+					<br><br>
 					<form action="/song/{{ $song->id }}" method="POST">
 						<input type="hidden" name="_method" value="DELETE">
 						<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">

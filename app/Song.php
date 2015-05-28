@@ -11,6 +11,14 @@ class Song extends Model {
 
 	protected $dates = ['deleted_at'];
 
+	protected $fillable = [
+		'title',
+		'original_title',
+		'category_id',
+		'composer_id',
+		'orchestration_id',
+	];
+
 	public function composer()
 	{
 		return $this->belongsTo('App\Composer');

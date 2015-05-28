@@ -14,6 +14,7 @@
 Route::get('/', 'SongController@index');
 Route::get('trash', 'SongController@trash');
 Route::get('file/{id}', 'FileController@show');
+Route::put('file/{id}', 'FileController@update');
 Route::resource('song', 'SongController');
 Route::resource('composer', 'ComposerController');
 Route::resource('category', 'CategoryController');
