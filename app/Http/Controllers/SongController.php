@@ -10,9 +10,10 @@ use App\Composer;
 use App\Orchestration;
 use App\File;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 use Storage;
+use Auth;
 
 class SongController extends Controller {
 
@@ -40,12 +41,19 @@ class SongController extends Controller {
 	 */
 	public function create()
 	{
-		return view('songs.form', [
-				'categories' 			=> Category::all(),
-				'composers'  			=> Composer::all(),
-				'orchestrations' 	=> Orchestration::all(),
-				'data' 						=> [],
-			]);
+		if(Auth::check())
+		{
+			return view('songs.form', [
+					'categories' 			=> Category::all(),
+					'composers'  			=> Composer::all(),
+					'orchestrations' 	=> Orchestration::all(),
+					'data' 						=> [],
+				]);
+		}
+		else
+		{
+			return redirect('song');
+		}
 	}
 
 	/**
@@ -55,11 +63,16 @@ class SongController extends Controller {
 	 */
 	public function store(StoreSongRequest $request)
 	{
-		$song = Song::create($request->all());
-
-		$this->uploadFiles($request, $song->id);
-
-		return redirect('song');
+		if(Auth::check())
+		{
+			$song = Song::create($request->all());
+			$this->uploadFiles($request, $song->id);
+			return redirect('song');
+		}
+		else
+		{
+			return redirect('song');
+		}
 	}
 
 	private function uploadFiles(StoreSongRequest $request, $songId)
@@ -109,14 +122,21 @@ class SongController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$song = $this->song->find($id);
-		return view('songs.form', [
-				'categories' 			=> Category::all(),
-				'composers'  			=> Composer::all(),
-				'orchestrations' 	=> Orchestration::all(),
-				'data' 						=> $song,
-				'formtitle' 			=> 'Lied "' . $song->title . '" bearbeiten',
-			]);
+		if(Auth::check())
+		{
+			$song = $this->song->find($id);
+			return view('songs.form', [
+					'categories' 			=> Category::all(),
+					'composers'  			=> Composer::all(),
+					'orchestrations' 	=> Orchestration::all(),
+					'data' 						=> $song,
+					'formtitle' 			=> 'Lied "' . $song->title . '" bearbeiten',
+				]);
+		}
+		else
+		{
+			return redirect('song');
+		}
 	}
 
 	/**
@@ -127,20 +147,34 @@ class SongController extends Controller {
 	 */
 	public function update($id, StoreSongRequest $request)
 	{
-		/* Lied bearbeiten */
-		$old = $this->song->find($id);
-		$new = $request->all();
-		$old->update($new);
-		$this->uploadFiles($request, $id);
-		return redirect()->route('song.show', [$old]);
+		if(Auth::check())
+		{
+			/* Lied bearbeiten */
+			$old = $this->song->find($id);
+			$new = $request->all();
+			$old->update($new);
+			$this->uploadFiles($request, $id);
+			return redirect()->route('song.show', [$old]);
+		}
+		else
+		{
+			return redirect('song');
+		}
 	}
 
 	public function restore($id, Request $request)
 	{
-		/* gelöschtes Lied wiederherstellen */
-		if($request->has('restore'))
+		if(Auth::check())
 		{
-			$this->song->withTrashed()->where('id', $id)->first()->restore();
+			/* gelöschtes Lied wiederherstellen */
+			if($request->has('restore'))
+			{
+				$this->song->withTrashed()->where('id', $id)->first()->restore();
+				return redirect('song');
+			}
+		}
+		else
+		{
 			return redirect('song');
 		}
 	}
@@ -153,24 +187,38 @@ class SongController extends Controller {
 	 */
 	public function destroy($id, Request $request)
 	{
-		/* Lied aus Papierkorb löschen */
-		if($request->has('sure'))
+		if(Auth::check())
 		{
-			$this->song->withTrashed()->where('id', $id)->first()->forceDelete();
+			/* Lied aus Papierkorb löschen */
+			if($request->has('sure'))
+			{
+				$this->song->withTrashed()->where('id', $id)->first()->forceDelete();
+				return redirect('song');
+			}
+			/* Lied in Papierkorb legen */
+			$this->song->find($id)->delete();
 			return redirect('song');
 		}
-		/* Lied in Papierkorb legen */
-		$this->song->find($id)->delete();
-		return redirect('song');
+		else
+		{
+			return redirect('song');
+		}
 	}
 
 	public function trash()
 	{
-		return view('songs.index', [
-			'songs' => $this->song->onlyTrashed()->get(),
-			'listname' => 'Alle gelöschten Lieder',
-			'errorNoSongs' => 'Es gibt keine gelöschten Lieder',
-			]);
+		if(Auth::check())
+		{
+			return view('songs.index', [
+				'songs' => $this->song->onlyTrashed()->get(),
+				'listname' => 'Alle gelöschten Lieder',
+				'errorNoSongs' => 'Es gibt keine gelöschten Lieder',
+				]);
+		}
+		else
+		{
+			return redirect('song');
+		}
 	}
 
 }

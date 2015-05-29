@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 
 use App\Composer;
 
+use Auth;
+
 class ComposerController extends Controller {
 
 	private $composer;
@@ -41,12 +43,15 @@ class ComposerController extends Controller {
 	 */
 	public function store(StoreComposerRequest $request)
 	{
-		$composer = new Composer();
-		$composer->name = $request->input('name');
-		return json_encode([
-				'saved' => $composer->save(),
-				'name' => $request->input('name')
-			]);
+		if(Auth::check())
+		{
+			$composer = new Composer();
+			$composer->name = $request->input('name');
+			return json_encode([
+					'saved' => $composer->save(),
+					'name' => $request->input('name')
+				]);
+		}
 	}
 
 	/**

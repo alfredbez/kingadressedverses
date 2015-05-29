@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\File;
 
 use Storage;
+use Auth;
 
 use Illuminate\Support\Facades\Response;
 
@@ -38,13 +39,19 @@ class FileController extends Controller {
 
 	public function update($id, StoreFileRequest $request)
 	{
-		$file = $this->file->find($id);
-		$file->update(['name' => $request->name . '.' . $file->type]);
+		if(Auth::check())
+		{
+			$file = $this->file->find($id);
+			$file->update(['name' => $request->name . '.' . $file->type]);
+		}
 	}
 
 	public function destroy($id)
 	{
-		$this->file->find($id)->delete();
+		if(Auth::check())
+		{
+			$this->file->find($id)->delete();
+		}
 	}
 
 }

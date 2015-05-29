@@ -32,27 +32,29 @@
 							</td>
 						</tr>
 					</table>
-					@if ($song->trashed())
-						<form action="/song/{{ $song->id }}/restore" method="POST">
-							<input type="hidden" name="restore" value="true">
-							<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-							<button class="btn btn-success btn-sm">wiederherstellen</button>
-						</form>
-						<br>
+					@if (Auth::check())
+						@if ($song->trashed())
+							<form action="/song/{{ $song->id }}/restore" method="POST">
+								<input type="hidden" name="restore" value="true">
+								<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+								<button class="btn btn-success btn-sm">wiederherstellen</button>
+							</form>
+							<br>
+							<form action="/song/{{ $song->id }}" method="POST">
+								<input type="hidden" name="sure" value="true">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+								<button class="btn btn-danger btn-sm">endgültig entfernen</button>
+							</form>
+						@else
+						<a href="/song/{{ $song->id }}/edit" class="btn btn-primary btn-sm">bearbeiten</a>
+						<br><br>
 						<form action="/song/{{ $song->id }}" method="POST">
-							<input type="hidden" name="sure" value="true">
 							<input type="hidden" name="_method" value="DELETE">
 							<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-							<button class="btn btn-danger btn-sm">endgültig entfernen</button>
+							<button class="btn btn-danger btn-sm">löschen</button>
 						</form>
-					@else
-					<a href="/song/{{ $song->id }}/edit" class="btn btn-primary btn-sm">bearbeiten</a>
-					<br><br>
-					<form action="/song/{{ $song->id }}" method="POST">
-						<input type="hidden" name="_method" value="DELETE">
-						<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-						<button class="btn btn-danger btn-sm">löschen</button>
-					</form>
+						@endif
 					@endif
 				</div>
 			</div>

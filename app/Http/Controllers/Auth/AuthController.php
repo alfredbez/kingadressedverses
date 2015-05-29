@@ -20,6 +20,8 @@ class AuthController extends Controller {
 
 	use AuthenticatesAndRegistersUsers;
 
+	private $redirectTo = 'song';
+
 	/**
 	 * Create a new authentication controller instance.
 	 *

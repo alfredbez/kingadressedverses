@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 
 use App\Orchestration;
 
+use Auth;
+
 class OrchestrationController extends Controller {
 
 	private $orchestration;
@@ -41,12 +43,15 @@ class OrchestrationController extends Controller {
 	 */
 	public function store(StoreOrchestrationRequest $request)
 	{
-		$orchestration = new Orchestration();
-		$orchestration->name = $request->input('name');
-		return json_encode([
-				'saved' => $orchestration->save(),
-				'name' => $request->input('name')
-			]);
+		if(Auth::check())
+		{
+			$orchestration = new Orchestration();
+			$orchestration->name = $request->input('name');
+			return json_encode([
+					'saved' => $orchestration->save(),
+					'name' => $request->input('name')
+				]);
+		}
 	}
 
 	/**

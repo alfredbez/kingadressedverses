@@ -19,3 +19,8 @@ Route::resource('song', 'SongController');
 Route::resource('composer', 'ComposerController');
 Route::resource('category', 'CategoryController');
 Route::resource('orchestration', 'OrchestrationController');
+
+Route::controllers([
+	'auth' => 'Auth\AuthController',
+	'password' => 'Auth\PasswordController',
+]);

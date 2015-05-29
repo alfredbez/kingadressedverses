@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 
 use App\Category;
 
+use Auth;
+
 class CategoryController extends Controller {
 
 	private $category;
@@ -41,12 +43,15 @@ class CategoryController extends Controller {
 	 */
 	public function store(StoreCategoryRequest $request)
 	{
-		$category = new Category();
-		$category->name = $request->input('name');
-		return json_encode([
-				'saved' => $category->save(),
-				'name' => $request->input('name')
-			]);
+		if(Auth::check())
+		{
+			$category = new Category();
+			$category->name = $request->input('name');
+			return json_encode([
+					'saved' => $category->save(),
+					'name' => $request->input('name')
+				]);
+		}
 	}
 
 	/**
