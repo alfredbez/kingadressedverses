@@ -11,6 +11,14 @@ $(document).ready(function(){
 	}
 
 	/* neue Kategorie anlegen */
+	var showErrorAlert = function (jsonData) {
+		var alertEl = $('#formAlert');
+		var alertList = alertEl.find('ul').html('');
+		$.each(jsonData, function(field, error){
+			alertList.append($('<li/>').text(error));
+		});
+		alertEl.removeClass('hidden');
+	};
 	var updateList = function(list, newOption) {
 		$.ajax({
 		    url: '/' + list,
@@ -38,16 +46,11 @@ $(document).ready(function(){
 			    url: '/' + list,
 			    type: 'POST',
 			    data: 'name=' + newOption,
-			    success: function(data, text) {
+			    success: function(data) {
 			    		updateList(list, newOption);
 			    },
-			    error: function(data, text) {
-			    		var alertEl = $('#formAlert');
-			    		var alertList = alertEl.find('ul').html('');
-			    		$.each(data.responseJSON, function(field, error){
-			    			alertList.append($('<li/>').text(error));
-			    		});
-			    		alertEl.removeClass('hidden');
+			    error: function(data) {
+			    		showErrorAlert(data.responseJSON);
 			    }
 			});
 		});
@@ -66,13 +69,16 @@ $(document).ready(function(){
 			    url: '/file/' + id,
 			    type: 'POST',
 			    data: {
-			    	'name'		: newName + '.' + $.trim( el.find('label').text() ),
+			    	'name'		: newName,
 			    	'_method'	: 'PUT'
 			    },
 			    success: function(data) {
 			    		form.hide();
 			    		$("#fileEditSubmit").off();
 			    		name.text(newName);
+			    },
+			    error: function(data) {
+			    		showErrorAlert(data.responseJSON);
 			    }
 			});
 		});

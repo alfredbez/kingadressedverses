@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use App\Http\Requests\StoreFileRequest;
 use App\Http\Controllers\Controller;
 
 use App\File;
@@ -8,7 +8,6 @@ use App\File;
 use Storage;
 
 use Illuminate\Support\Facades\Response;
-use Illuminate\Http\Request;
 
 class FileController extends Controller {
 
@@ -37,9 +36,10 @@ class FileController extends Controller {
 		return Response::make('Die Datei wurde nicht gefunden', 404);
 	}
 
-	public function update($id, Request $request)
+	public function update($id, StoreFileRequest $request)
 	{
-		$this->file->find($id)->update(['name' => $request->name]);
+		$file = $this->file->find($id);
+		$file->update(['name' => $request->name . '.' . $file->type]);
 	}
 
 	public function destroy($id)
