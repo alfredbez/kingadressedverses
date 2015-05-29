@@ -30,7 +30,6 @@ class StoreSongRequest extends Request {
 	public function messages()
 	{
 		return [
-			'title.required' => 'Gib bitte einen Titel ein',
 			'category_id.required' => 'Wähle bitte eine passende Kategorie',
 			'composer_id.required' => 'Gib bitte den Namen des Komponisten an',
 			'orchestration_id.required' => 'Gib bitte die Besetzung an',

@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div id="formAlert" class="alert alert-danger @if (count($errors) == 0) hidden @endif">
-				<strong>Ups!</strong> Es gabe einige Probleme bei der Eingabe.<br><br>
+				<strong>Ups!</strong> Es gab einige Probleme bei der Eingabe.<br><br>
 				<ul>
 					@foreach ($errors->all() as $error)
 						<li>{{ $error }}</li>
