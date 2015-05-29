@@ -39,10 +39,35 @@
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/') }}">alle anzeigen</a></li>
 								@if (Auth::check())
+									<li role="presentation" class="dropdown-header">Admin Tools</li>
 									<li><a href="{{ url('/trash') }}">Papierkorb</a></li>
 									<li><a href="{{ url('/song/create') }}">Lied hinzufügen</a></li>
 								@endif
 							</ul>
+					</li>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kategorien <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							@foreach ($categories as $category)
+								<li><a href="/category/{{ $category->id }}">{{ $category->name }}</a></li>
+							@endforeach
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Komponisten <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							@foreach ($composers as $composer)
+								<li><a href="/composer/{{ $composer->id }}">{{ $composer->name }}</a></li>
+							@endforeach
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Besetzungen <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							@foreach ($orchestrations as $orchestration)
+								<li><a href="/orchestration/{{ $orchestration->id }}">{{ $orchestration->name }}</a></li>
+							@endforeach
+						</ul>
 					</li>
 				</ul>
 				@if (Auth::check())

@@ -43,12 +43,7 @@ class SongController extends Controller {
 	{
 		if(Auth::check())
 		{
-			return view('songs.form', [
-					'categories' 			=> Category::all(),
-					'composers'  			=> Composer::all(),
-					'orchestrations' 	=> Orchestration::all(),
-					'data' 						=> [],
-				]);
+			return view('songs.form', ['data' => []]);
 		}
 		else
 		{
@@ -126,11 +121,8 @@ class SongController extends Controller {
 		{
 			$song = $this->song->find($id);
 			return view('songs.form', [
-					'categories' 			=> Category::all(),
-					'composers'  			=> Composer::all(),
-					'orchestrations' 	=> Orchestration::all(),
-					'data' 						=> $song,
-					'formtitle' 			=> 'Lied "' . $song->title . '" bearbeiten',
+					'data' 			=> $song,
+					'formtitle' => 'Lied "' . $song->title . '" bearbeiten',
 				]);
 		}
 		else

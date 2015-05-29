@@ -11,6 +11,11 @@
 |
 */
 
+View::share('categories', App\Category::all());
+View::share('composers', App\Composer::all());
+View::share('orchestrations', App\Orchestration::all());
+
+
 Route::get('/', 'SongController@index');
 Route::get('trash', 'SongController@trash');
 Route::post('song/{id}/restore', 'SongController@restore');
