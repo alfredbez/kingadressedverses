@@ -1,11 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use App\Http\Requests\StoreOrchestrationRequest;
 use App\Http\Controllers\Controller;
 
 use App\Orchestration;
-
-use Illuminate\Http\Request;
 
 class OrchestrationController extends Controller {
 
@@ -41,7 +39,7 @@ class OrchestrationController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(StoreOrchestrationRequest $request)
 	{
 		$orchestration = new Orchestration();
 		$orchestration->name = $request->input('name');

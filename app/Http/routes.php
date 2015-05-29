@@ -13,6 +13,7 @@
 
 Route::get('/', 'SongController@index');
 Route::get('trash', 'SongController@trash');
+Route::post('song/{id}/restore', 'SongController@restore');
 Route::resource('file', 'FileController');
 Route::resource('song', 'SongController');
 Route::resource('composer', 'ComposerController');

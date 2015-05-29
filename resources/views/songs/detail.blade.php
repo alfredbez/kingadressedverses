@@ -33,9 +33,8 @@
 						</tr>
 					</table>
 					@if ($song->trashed())
-						<form action="/song/{{ $song->id }}" method="POST">
+						<form action="/song/{{ $song->id }}/restore" method="POST">
 							<input type="hidden" name="restore" value="true">
-							<input type="hidden" name="_method" value="PUT">
 							<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 							<button class="btn btn-success btn-sm">wiederherstellen</button>
 						</form>

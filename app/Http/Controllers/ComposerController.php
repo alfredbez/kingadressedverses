@@ -1,11 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use App\Http\Requests\StoreComposerRequest;
 use App\Http\Controllers\Controller;
 
 use App\Composer;
-
-use Illuminate\Http\Request;
 
 class ComposerController extends Controller {
 
@@ -41,7 +39,7 @@ class ComposerController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(StoreComposerRequest $request)
 	{
 		$composer = new Composer();
 		$composer->name = $request->input('name');

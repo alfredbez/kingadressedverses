@@ -1,11 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Controllers\Controller;
 
 use App\Category;
-
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller {
 
@@ -41,7 +39,7 @@ class CategoryController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(StoreCategoryRequest $request)
 	{
 		$category = new Category();
 		$category->name = $request->input('name');

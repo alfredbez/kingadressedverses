@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\StoreSongRequest;
 use App\Http\Controllers\Controller;
 
 use App\Song;
@@ -52,7 +53,7 @@ class SongController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(StoreSongRequest $request)
 	{
 		$song = Song::create($request->all());
 
@@ -61,7 +62,7 @@ class SongController extends Controller {
 		return redirect('song');
 	}
 
-	private function uploadFiles(Request $request, $songId)
+	private function uploadFiles(StoreSongRequest $request, $songId)
 	{
 		/* Dateien hochladen und speichern */
 		if($request->hasFile('files'))
@@ -124,7 +125,17 @@ class SongController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $request)
+	public function update($id, StoreSongRequest $request)
+	{
+		/* Lied bearbeiten */
+		$old = $this->song->find($id);
+		$new = $request->all();
+		$old->update($new);
+		$this->uploadFiles($request, $id);
+		return redirect()->route('song.show', [$old]);
+	}
+
+	public function restore($id, Request $request)
 	{
 		/* gelöschtes Lied wiederherstellen */
 		if($request->has('restore'))
@@ -132,13 +143,6 @@ class SongController extends Controller {
 			$this->song->withTrashed()->where('id', $id)->first()->restore();
 			return redirect('song');
 		}
-
-		/* Lied bearbeiten */
-		$old = $this->song->find($id);
-		$new = $request->all();
-		$old->update($new);
-		$this->uploadFiles($request, $id);
-		return redirect()->route('song.show', [$old]);
 	}
 
 	/**
@@ -155,6 +159,7 @@ class SongController extends Controller {
 			$this->song->withTrashed()->where('id', $id)->first()->forceDelete();
 			return redirect('song');
 		}
+		/* Lied in Papierkorb legen */
 		$this->song->find($id)->delete();
 		return redirect('song');
 	}

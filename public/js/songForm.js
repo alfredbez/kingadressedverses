@@ -38,8 +38,16 @@ $(document).ready(function(){
 			    url: '/' + list,
 			    type: 'POST',
 			    data: 'name=' + newOption,
-			    success: function(data) {
+			    success: function(data, text) {
 			    		updateList(list, newOption);
+			    },
+			    error: function(data, text) {
+			    		var alertEl = $('#formAlert');
+			    		var alertList = alertEl.find('ul').html('');
+			    		$.each(data.responseJSON, function(field, error){
+			    			alertList.append($('<li/>').text(error));
+			    		});
+			    		alertEl.removeClass('hidden');
 			    }
 			});
 		});
