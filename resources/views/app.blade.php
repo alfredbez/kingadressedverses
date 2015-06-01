@@ -97,6 +97,13 @@
 						</ul>
 					</li>
 				</ul>
+				<form action="/search/" method="POST" class="navbar-form navbar-left" role="search">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	        <div class="form-group">
+	          <input type="text" name="searchWord" class="form-control" placeholder="Suche">
+	        </div>
+	        <button type="submit" class="btn btn-default">Suchen</button>
+	      </form>
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::check())
 						<li class="dropdown">
