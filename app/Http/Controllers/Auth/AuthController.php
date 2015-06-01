@@ -37,6 +37,17 @@ class AuthController extends Controller {
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
+	/* Disable Registration */
+	public function getRegister()
+	{
+		return redirect($this->redirectPath());
+	}
+
+	public function postRegister()
+	{
+		return redirect($this->redirectPath());
+	}
+
 	/**
 	 * Get the failed login message.
 	 *
