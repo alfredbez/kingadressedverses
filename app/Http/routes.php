@@ -24,7 +24,6 @@ Route::get('song/trash', 'SongController@trash');
 Route::get('poem/trash', 'PoemController@trash');
 Route::post('song/{id}/restore', 'SongController@restore');
 Route::post('search', 'SearchController@run');
-Route::get('search', 'SearchController@test');
 Route::resource('file', 'FileController');
 Route::resource('song', 'SongController');
 Route::resource('poem', 'PoemController');

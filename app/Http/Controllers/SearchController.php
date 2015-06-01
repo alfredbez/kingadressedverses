@@ -17,11 +17,6 @@ class SearchController extends Controller {
 
 	private $searchWord;
 
-	public function test()
-	{
-		dd('hello');
-	}
-
 	public function run(Request $request)
 	{
 		$this->searchWord = trim($request->searchWord);
