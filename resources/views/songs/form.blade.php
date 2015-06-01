@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('footerJs')
-	<script src="/js/songForm.js"></script>
+	<script src="/js/script.js"></script>
 @endsection
 
 @section('content')
@@ -73,7 +73,7 @@
 											@if ($composer->id == old('composer')) selected="selected" @endif
 										>{{ $composer->name }}</option>
 									@empty
-										<option value="0">keine Komponsiten gefunden</option>
+										<option value="0">keine Komponisten gefunden</option>
 									@endforelse
 								</select>
 								@if ($errors->has('composer'))
@@ -124,7 +124,7 @@
 								<input type="file" name="files[]" multiple="multiple" />
 								<br>
 								@if ($data != null)
-									@include('songs.sub.fileList', ['files' => $data->files, 'editForm' => true])
+									@include('sub.fileList', ['files' => $data->files, 'editForm' => true])
 								@endif
 							</div>
 						</div>

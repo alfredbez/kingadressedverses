@@ -6240,3 +6240,7 @@ small.error
 {
   display: inline-block;
 }
+.navigation-divider
+{
+  border-right: 1px solid #ddd;
+}

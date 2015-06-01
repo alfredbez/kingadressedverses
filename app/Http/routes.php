@@ -15,12 +15,19 @@ View::share('categories', App\Category::all());
 View::share('composers', App\Composer::all());
 View::share('orchestrations', App\Orchestration::all());
 
+View::share('authors', App\Author::all());
+View::share('topics', App\Topic::all());
+
 
 Route::get('/', 'SongController@index');
-Route::get('trash', 'SongController@trash');
+Route::get('song/trash', 'SongController@trash');
+Route::get('poem/trash', 'PoemController@trash');
 Route::post('song/{id}/restore', 'SongController@restore');
 Route::resource('file', 'FileController');
 Route::resource('song', 'SongController');
+Route::resource('poem', 'PoemController');
+Route::resource('author', 'AuthorController');
+Route::resource('topic', 'TopicController');
 Route::resource('composer', 'ComposerController');
 Route::resource('category', 'CategoryController');
 Route::resource('orchestration', 'OrchestrationController');

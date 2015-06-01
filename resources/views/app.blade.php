@@ -40,7 +40,7 @@
 								<li><a href="{{ url('/') }}">alle anzeigen</a></li>
 								@if (Auth::check())
 									<li role="presentation" class="dropdown-header">Admin Tools</li>
-									<li><a href="{{ url('/trash') }}">Papierkorb</a></li>
+									<li><a href="{{ url('/song/trash') }}">Papierkorb</a></li>
 									<li><a href="{{ url('/song/create') }}">Lied hinzufügen</a></li>
 								@endif
 							</ul>
@@ -62,10 +62,37 @@
 						</ul>
 					</li>
 					<li>
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Besetzungen <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle navigation-divider" data-toggle="dropdown" role="button" aria-expanded="false">Besetzungen <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							@foreach ($orchestrations as $orchestration)
 								<li><a href="/orchestration/{{ $orchestration->id }}">{{ $orchestration->name }}</a></li>
+							@endforeach
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gedichte <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/poem">alle anzeigen</a></li>
+							@if (Auth::check())
+								<li role="presentation" class="dropdown-header">Admin Tools</li>
+								<li><a href="{{ url('/poem/trash') }}">Papierkorb</a></li>
+								<li><a href="{{ url('/poem/create') }}">Gedicht hinzufügen</a></li>
+							@endif
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Autoren <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							@foreach ($authors as $author)
+								<li><a href="/author/{{ $author->id }}">{{ $author->name }}</a></li>
+							@endforeach
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Themen <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							@foreach ($topics as $topic)
+								<li><a href="/topic/{{ $topic->id }}">{{ $topic->name }}</a></li>
 							@endforeach
 						</ul>
 					</li>
