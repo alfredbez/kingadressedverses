@@ -66,7 +66,9 @@ class OrchestrationController extends Controller {
 		return view('songs.index', [
 			'songs' => $orchestration->songs,
 			'listname' => 'Alle Lieder mit der Besetzung "' . $orchestration->name . '"',
-			'errorNoSongs' => 'Es gibt leider noch keine Lieder mit der Besetzung "' . $orchestration->name . '"'
+			'errorNoSongs' => 'Es gibt leider noch keine Lieder mit der Besetzung "' . $orchestration->name . '"',
+			'filter' => 'orchestration',
+			'id' => $id,
 			]);
 	}
 
@@ -78,7 +80,18 @@ class OrchestrationController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		if(Auth::check())
+		{
+			$orchestration = $this->orchestration->find($id);
+			return view('forms.rename', [
+				'model' => 'orchestration',
+				'data' => $orchestration
+				]);
+		}
+		else
+		{
+			return redirect()->route('orchestration.show', ['id' => $id]);
+		}
 	}
 
 	/**
@@ -87,9 +100,21 @@ class OrchestrationController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, StoreOrchestrationRequest $request)
 	{
-		//
+		if(Auth::check())
+		{
+			/* Orchestration bearbeiten */
+			$old = $this->orchestration->find($id);
+			$oldname = $old->name;
+			$new = $request->all();
+			$old->update($new);
+			return redirect()
+							->route('orchestration.show', ['id' => $id])
+							->with('success', 'Besetzung <i>' . $oldname . '</i>'
+																 . ' erfolgreich umbenannt');
+		}
+		return redirect()->route('orchestration.show', ['id' => $id]);
 	}
 
 	/**
@@ -100,7 +125,19 @@ class OrchestrationController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$orchestration = $this->orchestration->find($id);
+		if(count( $orchestration->songs ) > 0)
+		{
+			return redirect()->back()
+							->with('info', 'Es gibt noch Lieder mit dieser Besetzung.'
+															. ' Deshalb kannst du diese Besetzung nicht löschen');
+		}
+		$orchestrationName = $orchestration->name;
+		$orchestration->delete();
+		return redirect()
+						->route('song.index')
+						->with('success', 'Die Besetzung <i>' . $orchestrationName . '</i>'
+															 . ' wurde erfolgreich gelöscht');
 	}
 
 }

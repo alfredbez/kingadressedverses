@@ -66,7 +66,9 @@ class CategoryController extends Controller {
 		return view('songs.index', [
 			'songs' => $category->songs,
 			'listname' => 'Alle Lieder in der Kategorie "' . $category->name . '"',
-			'errorNoSongs' => 'Es gibt leider noch keine Lieder in der Kategorie "' . $category->name . '"'
+			'errorNoSongs' => 'Es gibt leider noch keine Lieder in der Kategorie "' . $category->name . '"',
+			'filter' => 'category',
+			'id' => $id,
 			]);
 	}
 
@@ -78,7 +80,18 @@ class CategoryController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		if(Auth::check())
+		{
+			$category = $this->category->find($id);
+			return view('forms.rename', [
+				'model' => 'category',
+				'data' => $category
+				]);
+		}
+		else
+		{
+			return redirect()->route('category.show', ['id' => $id]);
+		}
 	}
 
 	/**
@@ -87,9 +100,21 @@ class CategoryController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, StoreCategoryRequest $request)
 	{
-		//
+		if(Auth::check())
+		{
+			/* Category bearbeiten */
+			$old = $this->category->find($id);
+			$oldname = $old->name;
+			$new = $request->all();
+			$old->update($new);
+			return redirect()
+							->route('category.show', ['id' => $id])
+							->with('success', 'Kategorie <i>' . $oldname . '</i>'
+																 . ' erfolgreich umbenannt');
+		}
+		return redirect()->route('category.show', ['id' => $id]);
 	}
 
 	/**
@@ -100,7 +125,19 @@ class CategoryController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$category = $this->category->find($id);
+		if(count( $category->songs ) > 0)
+		{
+			return redirect()->back()
+							->with('info', 'Es gibt noch Lieder in dieser Kategorie,'
+																 . ' deshalb kannst du sie nicht löschen');
+		}
+		$categoryName = $category->name;
+		$category->delete();
+		return redirect()
+						->route('song.index')
+						->with('success', 'Die Kategorie <i>' . $categoryName . '</i>'
+															 . ' wurde erfolgreich gelöscht');
 	}
 
 }

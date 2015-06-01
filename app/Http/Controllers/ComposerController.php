@@ -66,7 +66,9 @@ class ComposerController extends Controller {
 		return view('songs.index', [
 			'songs' => $composer->songs,
 			'listname' => 'Alle Lieder des Komponisten "' . $composer->name . '"',
-			'errorNoSongs' => 'Es gibt leider noch keine Lieder des Komponisten "' . $composer->name . '"'
+			'errorNoSongs' => 'Es gibt leider noch keine Lieder des Komponisten "' . $composer->name . '"',
+			'filter' => 'composer',
+			'id' => $id,
 			]);
 	}
 
@@ -78,7 +80,18 @@ class ComposerController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		if(Auth::check())
+		{
+			$composer = $this->composer->find($id);
+			return view('forms.rename', [
+				'model' => 'composer',
+				'data' => $composer
+				]);
+		}
+		else
+		{
+			return redirect()->route('composer.show', ['id' => $id]);
+		}
 	}
 
 	/**
@@ -87,9 +100,21 @@ class ComposerController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, StoreComposerRequest $request)
 	{
-		//
+		if(Auth::check())
+		{
+			/* Composer bearbeiten */
+			$old = $this->composer->find($id);
+			$oldname = $old->name;
+			$new = $request->all();
+			$old->update($new);
+			return redirect()
+							->route('composer.show', ['id' => $id])
+							->with('success', 'Komponist <i>' . $oldname . '</i>'
+																 . ' erfolgreich umbenannt');
+		}
+		return redirect()->route('composer.show', ['id' => $id]);
 	}
 
 	/**
@@ -100,7 +125,20 @@ class ComposerController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$composer = $this->composer->find($id);
+		if(count( $composer->songs ) > 0)
+		{
+			return redirect()->back()
+							->with('info', 'Es gibt noch Lieder, die mit diesem Komponisten'
+																 . ' verbunden sind. Deshalb kannst du den '
+																 . ' Komponisten nicht löschen');
+		}
+		$composerName = $composer->name;
+		$composer->delete();
+		return redirect()
+						->route('song.index')
+						->with('success', 'Der Komponsist <i>' . $composerName . '</i>'
+															 . ' wurde erfolgreich gelöscht');
 	}
 
 }
