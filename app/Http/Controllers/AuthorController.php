@@ -64,7 +64,7 @@ class AuthorController extends Controller {
 	{
 		$author = $this->author->find($id);
 		return view('poems.index', [
-			'poems' => $author->poems,
+			'poems' => $author->poems()->ordered(),
 			'listname' => 'Alle Gedichte des Autors "' . $author->name . '"',
 			'errorNoPoems' => 'Es gibt leider noch keine Gedichte des Autors "' . $author->name . '"',
 			'filter' => 'author',

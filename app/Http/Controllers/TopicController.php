@@ -64,7 +64,7 @@ class TopicController extends Controller {
 	{
 		$topic = $this->topic->find($id);
 		return view('poems.index', [
-			'poems' => $topic->poems,
+			'poems' => $topic->poems()->ordered(),
 			'listname' => 'Alle Gedichte zum Thema "' . $topic->name . '"',
 			'errorNoPoems' => 'Es gibt leider noch keine Gedichte zum Thema "' . $topic->name . '"',
 			'filter' => 'topic',

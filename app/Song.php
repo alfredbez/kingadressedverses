@@ -39,4 +39,9 @@ class Song extends Model {
 		return $this->hasMany('App\File');
 	}
 
+	public function scopeOrdered($query)
+	{
+    return $query->orderBy('created_at', 'desc')->get();
+	}
+
 }

@@ -27,7 +27,7 @@ class PoemController extends Controller {
 	 */
 	public function index()
 	{
-		return view('poems.index', ['poems' => $this->poem->all()]);
+		return view('poems.index', ['poems' => $this->poem->ordered()]);
 	}
 
 	/**

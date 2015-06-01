@@ -31,7 +31,7 @@ class SongController extends Controller {
 	 */
 	public function index()
 	{
-		return view('songs.index', ['songs' => $this->song->all()]);
+		return view('songs.index', ['songs' => $this->song->ordered()]);
 	}
 
 	/**

@@ -64,7 +64,7 @@ class OrchestrationController extends Controller {
 	{
 		$orchestration = $this->orchestration->find($id);
 		return view('songs.index', [
-			'songs' => $orchestration->songs,
+			'songs' => $orchestration->songs()->ordered(),
 			'listname' => 'Alle Lieder mit der Besetzung "' . $orchestration->name . '"',
 			'errorNoSongs' => 'Es gibt leider noch keine Lieder mit der Besetzung "' . $orchestration->name . '"',
 			'filter' => 'orchestration',

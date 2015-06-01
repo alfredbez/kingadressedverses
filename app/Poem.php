@@ -30,4 +30,9 @@ class Poem extends Model {
 		return $this->belongsTo('App\Author');
 	}
 
+	public function scopeOrdered($query)
+	{
+		return $query->orderBy('created_at', 'desc')->get();
+	}
+
 }

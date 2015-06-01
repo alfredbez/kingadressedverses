@@ -64,7 +64,7 @@ class ComposerController extends Controller {
 	{
 		$composer = $this->composer->find($id);
 		return view('songs.index', [
-			'songs' => $composer->songs,
+			'songs' => $composer->songs()->ordered(),
 			'listname' => 'Alle Lieder des Komponisten "' . $composer->name . '"',
 			'errorNoSongs' => 'Es gibt leider noch keine Lieder des Komponisten "' . $composer->name . '"',
 			'filter' => 'composer',

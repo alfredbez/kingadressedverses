@@ -64,7 +64,7 @@ class CategoryController extends Controller {
 	{
 		$category = $this->category->find($id);
 		return view('songs.index', [
-			'songs' => $category->songs,
+			'songs' => $category->songs()->ordered(),
 			'listname' => 'Alle Lieder in der Kategorie "' . $category->name . '"',
 			'errorNoSongs' => 'Es gibt leider noch keine Lieder in der Kategorie "' . $category->name . '"',
 			'filter' => 'category',
