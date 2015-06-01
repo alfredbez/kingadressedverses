@@ -9,7 +9,7 @@
 				<div class="panel-heading">{{ $listname or 'alle Lieder' }}</div>
 
 				<div class="panel-body">
-					@if (isset($filter))
+					@if (isset($filter) && Auth::check())
 						<a href="/{{ $filter }}/{{ $id }}/edit" class="btn btn-xs btn-primary">umbenennen</a>
 						<form action="/{{ $filter }}/{{ $id }}" method="POST" class="one-btn-form">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">

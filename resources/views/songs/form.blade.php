@@ -54,7 +54,7 @@
 								<br>
 								<div class="row">
 									<div class="col-sm-12 col-md-8">
-										<input type="text" id="newCategoryName" class="form-control input-sm">
+										<input type="text" id="newCategoryName" placeholder="Name der neuen Kategorie" class="form-control input-sm">
 									</div>
 									<div class="col-sm-12 col-md-4">
 										<span class="btn btn-primary btn-sm" id="newCategory">Kategorie hinzufügen</span>
@@ -82,7 +82,7 @@
 								<br>
 								<div class="row">
 									<div class="col-sm-12 col-md-8">
-										<input type="text" id="newComposerName" class="form-control input-sm">
+										<input type="text" id="newComposerName" placeholder="Name des neuen Komponisten" class="form-control input-sm">
 									</div>
 									<div class="col-sm-12 col-md-4">
 										<span class="btn btn-primary btn-sm" id="newComposer">Komponist hinzufügen</span>
@@ -109,7 +109,7 @@
 								<br>
 								<div class="row">
 									<div class="col-sm-12 col-md-8">
-										<input type="text" id="newOrchestrationName" class="form-control input-sm">
+										<input type="text" id="newOrchestrationName" placeholder="Name der neuen Besetzung" class="form-control input-sm">
 									</div>
 									<div class="col-sm-12 col-md-4">
 										<span class="btn btn-primary btn-sm" id="newOrchestration">Besetzung hinzufügen</span>
