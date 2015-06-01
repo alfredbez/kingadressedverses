@@ -14,6 +14,10 @@
 							<td>{{ $song->title }}</td>
 						</tr>
 						<tr>
+							<th>Originaltitel</th>
+							<td>{{ $song->original_title }}</td>
+						</tr>
+						<tr>
 							<th>Komponist</th>
 							<td><a href="/composer/{{ $song->composer->id }}/">{{ $song->composer->name }}</a></td>
 						</tr>
