@@ -17,7 +17,7 @@ class Poem extends Model {
 
 	public function files()
 	{
-		return $this->hasMany('App\File');
+		return $this->hasMany('App\File')->withTrashed();
 	}
 
 	public function topic()

@@ -146,7 +146,15 @@ class ItemController extends Controller {
 		{
 			if($request->has('sure'))
 			{
-				$this->item->withTrashed()->where('id', $id)->first()->forceDelete();
+				// Verknüpfungen zu Dateien aufheben
+				$trashed = $this->item->withTrashed()->where('id', $id)->first();
+				$idAttribute = $this->itemName . '_id';
+				foreach($trashed->files as $file)
+				{
+					$file->{$idAttribute} = null;
+					$file->save();
+				}
+				$trashed->forceDelete();
 				return redirect( $this->itemName );
 			}
 			$this->item->find($id)->delete();
