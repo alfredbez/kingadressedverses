@@ -4,6 +4,8 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
+			@include('sub.alerts')
+			@include('errors.form')
 			<div class="panel panel-default">
 				<div class="panel-heading">{{ $song->title }}</div>
 
@@ -62,6 +64,12 @@
 					@endif
 				</div>
 			</div>
+			@include('sub.comments',
+			[
+				'comments' => $comments,
+				'url' => '/song/' . $song->id,
+				'type' => 'Lied'
+			])
 		</div>
 	</div>
 </div>

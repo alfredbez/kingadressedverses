@@ -21,6 +21,7 @@ return [
 		'email' 		=> 'E-Mail-Adresse',
 		'title' 		=> 'Titel',
 		'password' 	=> 'Passwort',
+		'comment' 	=> 'Kommentar',
 	],
 
 ];

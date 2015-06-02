@@ -20,11 +20,18 @@ View::share('topics', App\Topic::all());
 
 
 Route::get('/', 'SongController@index');
+
 Route::get('song/trash', 'SongController@trash');
 Route::get('poem/trash', 'PoemController@trash');
 Route::post('song/{id}/restore', 'SongController@restore');
 Route::post('poem/{id}/restore', 'PoemController@restore');
+
+Route::post('song/{id}/comment', 'SongController@storeComment');
+Route::get('comment/{id}/publish', 'CommentController@publish');
+Route::get('comment/{id}/delete', 'CommentController@destroy');
+
 Route::post('search', 'SearchController@run');
+
 Route::resource('file', 'FileController');
 Route::resource('song', 'SongController');
 Route::resource('poem', 'PoemController');

@@ -1,12 +1,14 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\StoreCommentRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseTrait;
 
 use Illuminate\Http\Request;
 
 use App\File;
+use App\Comment;
 
 use Storage;
 use Auth;
@@ -91,8 +93,17 @@ class ItemController extends Controller {
 	 */
 	public function show($id)
 	{
+		$items = $this->item->withTrashed()->where('id', $id)->first();
+		if(Auth::check())
+		{
+			$comments = $items->comments;
+		}
+		else{
+			$comments = $items->comments()->published()->get();
+		}
 		return view( $this->itemName . 's.detail', [
-			$this->itemName => $this->item->withTrashed()->where('id', $id)->first()
+			$this->itemName => $items,
+			'comments' => $comments,
 		]);
 	}
 
@@ -116,6 +127,12 @@ class ItemController extends Controller {
 		{
 			return redirect( $this->itemName );
 		}
+	}
+
+	public function storeComment($id, StoreCommentRequest $request)
+	{
+		$this->item->find($id)->comments()->create( $request->all() );
+		return redirect()->route($this->itemName . '.show' , ['id' => $id]);
 	}
 
 	public function restore($id, Request $request)

@@ -4,6 +4,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
+			@include('sub.alerts')
 			<div class="panel panel-default">
 				<div class="panel-heading">{{ $poem->title }}</div>
 
@@ -54,6 +55,12 @@
 					@endif
 				</div>
 			</div>
+			@include('sub.comments',
+				[
+					'comments' => $comments,
+					'url' => '/poem/' . $poem->id,
+					'type' => 'Gedicht'
+				])
 		</div>
 	</div>
 </div>

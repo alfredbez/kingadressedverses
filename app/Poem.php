@@ -35,4 +35,9 @@ class Poem extends Model {
 		return $query->orderBy('created_at', 'desc')->get();
 	}
 
+	public function comments()
+	{
+	  return $this->morphMany('App\Comment', 'commentable');
+	}
+
 }
