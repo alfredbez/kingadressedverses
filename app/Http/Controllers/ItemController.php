@@ -132,7 +132,11 @@ class ItemController extends Controller {
 	public function storeComment($id, StoreCommentRequest $request)
 	{
 		$this->item->find($id)->comments()->create( $request->all() );
-		return redirect()->route($this->itemName . '.show' , ['id' => $id]);
+		return redirect()->route($this->itemName . '.show' , ['id' => $id])
+											->with(	'info',
+															'Der Kommentar wurde erfolgreich gespeichert, '
+															. 'muss aber noch vom Administrator '
+															. 'veröffentlich werden.');
 	}
 
 	public function restore($id, Request $request)
