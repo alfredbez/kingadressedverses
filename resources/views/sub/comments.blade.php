@@ -30,6 +30,7 @@
     @forelse ($comments as $comment)
       <div class="panel panel-default">
         <div class="panel-heading">
+          <a name="comment{{ $comment->id }}"></a>
           @unless ($comment->published)
             <span class="label label-info">nicht öffentlich</span>
           @endunless

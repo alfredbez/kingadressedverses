@@ -12,6 +12,7 @@ use App\Comment;
 
 use Storage;
 use Auth;
+use Mail;
 
 class ItemController extends Controller {
 
@@ -132,6 +133,18 @@ class ItemController extends Controller {
   public function storeComment($id, StoreCommentRequest $request)
   {
     $this->item->find($id)->comments()->create( $request->all() );
+
+    $commentId = Comment::orderBy('id', 'desc')->first()->id;
+
+    $commentLink = '/' . $this->itemName . '/' . $id . '/#comment' . $commentId;
+
+    Mail::send(
+      'emails.newComment', compact('commentLink'), function ($m) {
+        $m->to('alfred.bez@gmail.com', 'Alfred Bez')
+          ->subject('Es gibt einen neuen Kommentar');
+      }
+    );
+
     return redirect()->route($this->itemName . '.show' , ['id' => $id])
                       ->with( 'info',
                               'Der Kommentar wurde erfolgreich gespeichert, '
