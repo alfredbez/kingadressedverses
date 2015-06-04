@@ -140,7 +140,7 @@ class ItemController extends Controller {
 
     Mail::queue(
       'emails.newComment', compact('commentLink'), function ($m) {
-        $m->to('alfred.bez@gmail.com', 'Alfred Bez')
+        $m->to('bettina.hipke@gmail.com', 'Bettina Hipke')
           ->subject('Es gibt einen neuen Kommentar');
       }
     );
