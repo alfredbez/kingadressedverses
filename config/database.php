@@ -115,9 +115,8 @@ return [
 		'cluster' => false,
 
 		'default' => [
-			'host'     => parse_url(getenv('REDISTOGO_URL'))['host'],
-			'port'     => parse_url(getenv('REDISTOGO_URL'))['port'],
-			'password' =>	parse_url(getenv('REDISTOGO_URL'))['pass'],
+			'host'     => '127.0.0.1',
+			'port'     => 6379,
 			'database' => 0,
 		],
 
