@@ -138,7 +138,7 @@ class ItemController extends Controller {
 
     $commentLink = '/' . $this->itemName . '/' . $id . '/#comment' . $commentId;
 
-    Mail::send(
+    Mail::queue(
       'emails.newComment', compact('commentLink'), function ($m) {
         $m->to('alfred.bez@gmail.com', 'Alfred Bez')
           ->subject('Es gibt einen neuen Kommentar');
