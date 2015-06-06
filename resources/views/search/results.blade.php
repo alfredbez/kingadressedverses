@@ -31,10 +31,10 @@
 				</div>
 			</div>
 
-			{{-- Kategorien --}}
+			{{-- Themen --}}
 			@if (count($results['categories']) > 0)
 				<div class="panel panel-default">
-					<div class="panel-heading">Kategorien</div>
+					<div class="panel-heading">Themen</div>
 					<div class="panel-body">
 						@include('sub.list', ['items' => $results['categories'], 'model' => 'category'])
 					</div>

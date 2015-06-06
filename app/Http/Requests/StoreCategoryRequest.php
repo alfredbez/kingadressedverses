@@ -27,7 +27,7 @@ class StoreCategoryRequest extends Request {
 	public function messages()
 	{
 		return [
-			'required' => 'Bitte gib einen Kategorienamen an',
+			'required' => 'Bitte gib ein Thema an',
 		];
 	}
 

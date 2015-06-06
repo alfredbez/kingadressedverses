@@ -37,7 +37,7 @@
 						</div>
 						<hr>
 						<div class="form-group">
-							<label class="col-md-4 control-label">Kategorie</label>
+							<label class="col-md-4 control-label">Thema</label>
 							<div class="col-md-6 @if ($errors->has('category')) has-error @endif">
 								<select name="category_id" class="form-control">
 									@forelse ($categories as $category)
@@ -45,7 +45,7 @@
 											@if ($data != null && $category->id == $data->category->id) selected="selected" @endif
 										>{{ $category->name }}</option>
 									@empty
-										<option value="0">keine Kategorien gefunden</option>
+										<option value="0">keine Themen gefunden</option>
 									@endforelse
 								</select>
 								@if ($errors->has('category'))
@@ -54,10 +54,10 @@
 								<br>
 								<div class="row">
 									<div class="col-sm-12 col-md-8">
-										<input type="text" id="newCategoryName" placeholder="Name der neuen Kategorie" class="form-control input-sm">
+										<input type="text" id="newCategoryName" placeholder="Name des neuen Themas" class="form-control input-sm">
 									</div>
 									<div class="col-sm-12 col-md-4">
-										<span class="btn btn-primary btn-sm" id="newCategory">Kategorie hinzufügen</span>
+										<span class="btn btn-primary btn-sm" id="newCategory">Thema hinzufügen</span>
 									</div>
 								</div>
 							</div>

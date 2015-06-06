@@ -24,7 +24,7 @@
 							<td><a href="/composer/{{ $song->composer->id }}/">{{ $song->composer->name }}</a></td>
 						</tr>
 						<tr>
-							<th>Kategorie</th>
+							<th>Thema</th>
 							<td><a href="/category/{{ $song->category->id }}/">{{ $song->category->name }}</a></td>
 						</tr>
 						<tr>
