@@ -16,9 +16,14 @@ class Poem extends Model {
 	];
 
 	public function files()
-	{
-		return $this->hasMany('App\File')->withTrashed();
-	}
+  {
+    return $this->hasMany('App\File');
+  }
+
+  public function allfiles()
+  {
+    return $this->hasMany('App\File')->withTrashed();
+  }
 
 	public function topic()
 	{

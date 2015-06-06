@@ -183,7 +183,7 @@ class ItemController extends Controller {
         // Verknüpfungen zu Dateien aufheben
         $trashed = $this->item->withTrashed()->where('id', $id)->first();
         $idAttribute = $this->itemName . '_id';
-        foreach($trashed->files as $file)
+        foreach($trashed->allfiles as $file)
         {
           $file->{$idAttribute} = null;
           $file->save();

@@ -34,7 +34,12 @@ class Song extends Model {
 		return $this->belongsTo('App\Orchestration');
 	}
 
-	public function files()
+  public function files()
+  {
+    return $this->hasMany('App\File');
+  }
+
+	public function allfiles()
 	{
 		return $this->hasMany('App\File')->withTrashed();
 	}
