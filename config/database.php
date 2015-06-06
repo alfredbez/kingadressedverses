@@ -1,5 +1,8 @@
 <?php
 
+$envHeroku = env('APP_ENV') !== 'local' && env('APP_ENV') !== 'testing';
+$localDatabase = env('APP_ENV') === 'testing' ? 'homestead_testing' : env('DB_DATABASE');
+
 return [
 
 	/*
@@ -54,10 +57,10 @@ return [
 
 		'mysql' => [
 			'driver'    => 'mysql',
-			'host'      => env('APP_ENV') === 'local' ? env('DB_HOST') : parse_url(getenv("CLEARDB_DATABASE_URL"))["host"],
-			'database'  => env('APP_ENV') === 'local' ? env('DB_DATABASE') : substr(parse_url(getenv("CLEARDB_DATABASE_URL"))["path"], 1),
-			'username'  => env('APP_ENV') === 'local' ? env('DB_USERNAME') : parse_url(getenv("CLEARDB_DATABASE_URL"))["user"],
-			'password'  => env('APP_ENV') === 'local' ? env('DB_PASSWORD') : parse_url(getenv("CLEARDB_DATABASE_URL"))["pass"],
+			'host'      => $envHeroku ? parse_url(getenv("CLEARDB_DATABASE_URL"))["host"] : env('DB_HOST'),
+			'database'  => $envHeroku ? substr(parse_url(getenv("CLEARDB_DATABASE_URL"))["path"], 1) : $localDatabase,
+			'username'  => $envHeroku ? parse_url(getenv("CLEARDB_DATABASE_URL"))["user"] : env('DB_USERNAME'),
+			'password'  => $envHeroku ? parse_url(getenv("CLEARDB_DATABASE_URL"))["pass"] : env('DB_PASSWORD'),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
