@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseTrait;
+use App\Http\Controllers\HasItem;
 
 use Illuminate\Http\Request;
 
@@ -16,17 +17,7 @@ use Mail;
 
 class ItemController extends Controller {
 
-  /* enthält das Object, also z.B. new Song() */
-  protected $item;
-
-  /* enthält den Namen des Object, also z.B. 'song' */
-  protected $itemName;
-
-  /* enthält den Namen des Objects für die Templates, also z.B. 'Lied' */
-  protected $itemDisplayName;
-
-  /* wie $itemDisplayName nur Plural, also z.B. 'Lieder' */
-  protected $itemDisplayNamePlural;
+  use HasItem;
 
   /**
    * Display a listing of the resource.

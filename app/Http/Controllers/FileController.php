@@ -50,7 +50,7 @@ class FileController extends Controller {
 	{
 		if(Auth::check())
 		{
-			$this->file->find($id)->delete();
+      $this->file->find($id)->delete();
 		}
 	}
 
