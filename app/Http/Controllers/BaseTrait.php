@@ -11,17 +11,17 @@ trait BaseTrait {
      */
     public function store($request)
     {
-    	if(Auth::check())
-    	{
-    		$modelName = 'App\\' . ucwords($this->itemName);
-    		$item = $modelName::create($request->all());
-    		$this->uploadFiles($request, $item->id);
-    		return redirect($this->itemName);
-    	}
-    	else
-    	{
-    		return redirect($this->itemName);
-    	}
+        if(Auth::check())
+        {
+            $modelName = 'App\\' . ucwords($this->itemName);
+            $item = $modelName::create($request->all());
+            $this->uploadFiles($request, $item->id);
+            return redirect($this->itemName);
+        }
+        else
+        {
+            return redirect($this->itemName);
+        }
     }
 
     /**
@@ -32,17 +32,17 @@ trait BaseTrait {
      */
     public function update($id, $request)
     {
-    	if(Auth::check())
-    	{
-    		$old = $this->item->find($id);
-    		$new = $request->all();
-    		$old->update($new);
-    		$this->uploadFiles($request, $id);
-    		return redirect()->route( $this->itemName . '.show', [$old]);
-    	}
-    	else
-    	{
-    		return redirect( $this->itemName );
-    	}
+        if(Auth::check())
+        {
+            $old = $this->item->find($id);
+            $new = $request->all();
+            $old->update($new);
+            $this->uploadFiles($request, $id);
+            return redirect()->route( $this->itemName . '.show', [$old]);
+        }
+        else
+        {
+            return redirect( $this->itemName );
+        }
     }
 }
