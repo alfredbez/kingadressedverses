@@ -22,7 +22,7 @@ class SongController extends ItemController {
 
 	public function store(StoreSongRequest $request)
 	{
-		$this->baseStore($request);
+		return $this->baseStore($request);
 	}
 
 	public function update($id, StoreSongRequest $request)

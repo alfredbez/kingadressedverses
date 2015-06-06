@@ -22,7 +22,7 @@ class PoemController extends ItemController {
 
 	public function store(StorePoemRequest $request)
 	{
-		$this->baseStore($request);
+		return $this->baseStore($request);
 	}
 
 	public function update($id, StorePoemRequest $request)
