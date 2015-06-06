@@ -13,7 +13,7 @@ trait BaseTrait {
     {
     	if(Auth::check())
     	{
-    		$modelName = ucwords($this->itemName);
+    		$modelName = 'App\\' . ucwords($this->itemName);
     		$item = $modelName::create($request->all());
     		$this->uploadFiles($request, $item->id);
     		return redirect($this->itemName);
