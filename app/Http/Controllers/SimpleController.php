@@ -68,7 +68,8 @@ class SimpleController extends Controller {
 					$typeName => $item->{$typeName}()->ordered(),
 					'listname' => 'Alle ' . $this->getPluralName() . ' ' . $this->messages['inItem'] . ' "' . $item->name . '"',
 					'errorNoSongs' => 'Es gibt leider noch keine ' . $this->getPluralName() . ' ' . $this->messages['inItem'] . ' "' . $item->name . '"',
-					'filter' => $this->itemName
+					'filter' => $this->itemName,
+					'id' => $id,
 					]);
 	}
 
