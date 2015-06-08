@@ -1,0 +1,19 @@
+{
+  "name": "kingadressedverses",
+  "version": "0.0.0",
+  "homepage": "https://github.com/alfredbez/kingadressedverses",
+  "authors": [
+    "Alfred Bez <alfred.bez@googlemail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "smartmenus": "~0.9.7"
+  }
+}
