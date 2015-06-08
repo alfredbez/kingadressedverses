@@ -7,7 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Kingadressedverses</title>
 
-  <link href="/bower_components/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.css" rel="stylesheet">
+  <link href="/assets/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.css" rel="stylesheet">
   <link href="/css/app.css" rel="stylesheet">
 
   <!-- Fonts -->
@@ -128,10 +128,10 @@
 
   <!-- Scripts -->
   <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/jquery/dist/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-  <script src="/bower_components/smartmenus/dist/jquery.smartmenus.min.js"></script>
-  <script src="/bower_components/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.min.js"></script>
+  <script src="/assets/smartmenus/dist/jquery.smartmenus.min.js"></script>
+  <script src="/assets/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.min.js"></script>
 
   @yield('footerJs')
 

@@ -1,0 +1,11 @@
+{
+    "name": "kingadressedverses",
+    "description": "",
+    "keywords": [],
+    "website": "http://kingadressedverses.herokuapp.com",
+    "repository": "https://github.com/alfredbez/kingadressedverses",
+    "success_url": "/",
+    "env": {
+        "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-multi"
+    }
+}
