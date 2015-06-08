@@ -22,9 +22,11 @@ class ContactRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name' 		=> 'required',
-			'email' 	=> 'required',
-			'message' => 'required',
+			'name' 				=> 'required',
+			'email' 			=> 'required',
+			'message' 		=> 'required',
+			'real_name'   => 'honeypot',
+			'real_time'   => 'required|honeytime:5',
 		];
 	}
 

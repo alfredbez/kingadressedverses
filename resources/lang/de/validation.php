@@ -4,6 +4,8 @@ return [
 
 	"required"             => ":attribute ist ein Pflichtfeld.",
 
+	'honeytime' => 'Bitte warten Sie einen Augenblick und senden Sie das Formular dann nochmal ab',
+
 	'custom' => [],
 
 	/*

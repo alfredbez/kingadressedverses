@@ -5,6 +5,7 @@
     <div class="collapse @if (count($errors) > 0) in @endif" id="commentForm">
       <form method="POST" action="{{ $url }}/comment">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        {!! Honeypot::generate('real_name', 'real_time') !!}
         <div class="form-group @if ($errors->has('author')) has-error @endif">
           <label for="author">Name</label>
           <input value="{{ old('author') }}" type="text" class="form-control" id="author" name="author" placeholder="Dein Name">

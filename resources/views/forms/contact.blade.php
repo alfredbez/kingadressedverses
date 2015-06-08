@@ -12,6 +12,7 @@
         <div class="panel-body">
           <form class="form-horizontal" role="form" method="POST" action="/contact">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            {!! Honeypot::generate('real_name', 'real_time') !!}
             <div class="form-group">
               <label class="col-md-4 control-label">Name</label>
               <div class="col-md-6 @if ($errors->has('name')) has-error @endif">

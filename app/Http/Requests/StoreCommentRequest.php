@@ -17,8 +17,10 @@ class StoreCommentRequest extends Request {
 	public function rules()
 	{
 		return [
-			'author' => 'required',
-			'comment' => 'required',
+			'author' 			=> 'required',
+			'comment' 		=> 'required',
+			'real_name'   => 'honeypot',
+			'real_time'   => 'required|honeytime:5',
 		];
 	}
 

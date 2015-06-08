@@ -145,6 +145,8 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+		'Msurguy\Honeypot\HoneypotServiceProvider',
+
 	],
 
 	/*
@@ -192,6 +194,8 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+
+		'Honeypot' => 'Msurguy\Honeypot\HoneypotFacade'
 
 	],
 
