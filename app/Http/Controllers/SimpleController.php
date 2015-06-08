@@ -109,7 +109,7 @@ class SimpleController extends Controller {
 			$linkedModelName = $this->type . 's';
 			if(count( $item->{$linkedModelName} ) > 0)
 			{
-				return redirect()->back()
+				return back()
 								->with('info', $this->messages['deleteItemHasItems']);
 			}
 			$itemName = $item->name;

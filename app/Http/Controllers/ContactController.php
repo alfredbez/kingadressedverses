@@ -20,7 +20,7 @@ class ContactController extends Controller {
           ->subject('Neue Nachricht über das Kontaktformular');
       }
     );
-    return redirect()->back()->with('success', 'Nachricht erfolgreich gesendet');
+    return back()->with('success', 'Nachricht erfolgreich gesendet');
   }
 
 }
