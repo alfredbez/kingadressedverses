@@ -20,6 +20,8 @@ return [
 	'attributes' => [
 		'email' 		=> 'E-Mail-Adresse',
 		'title' 		=> 'Titel',
+		'name' 		  => 'Name',
+		'message'	  => 'Nachricht',
 		'password' 	=> 'Passwort',
 		'comment' 	=> 'Kommentar',
 	],

@@ -32,6 +32,9 @@ Route::get('comment/{id}/delete', 'CommentController@destroy');
 
 Route::post('search', 'SearchController@run');
 
+Route::get('contact', 'ContactController@form');
+Route::post('contact', 'ContactController@send');
+
 Route::resource('file', 'FileController');
 Route::resource('song', 'SongController');
 Route::resource('poem', 'PoemController');
