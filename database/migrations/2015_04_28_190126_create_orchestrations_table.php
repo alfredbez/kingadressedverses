@@ -15,6 +15,7 @@ class CreateOrchestrationsTable extends Migration {
         Schema::create('orchestrations', function($table){
             $table->increments('id');
             $table->string('name');
+			$table->softDeletes();
         });
 	}
 

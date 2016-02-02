@@ -17,6 +17,7 @@ class CreateFilesTable extends Migration {
             $table->string('name');
             $table->string('filepath');
             $table->string('type');
+			$table->softDeletes();
         });
 	}
 
